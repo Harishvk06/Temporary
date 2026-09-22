@@ -1,0 +1,9 @@
+import sys
+import os
+import uvicorn
+from app.utils.utf8_utils import init_utf8_environment
+
+init_utf8_environment()
+
+if __name__ == "__main__":
+    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)

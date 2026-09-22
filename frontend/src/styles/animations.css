@@ -1,0 +1,205 @@
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) translateZ(0px);
+  }
+  50% {
+    transform: translateY(-10px) translateZ(15px);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(47, 217, 244, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(47, 217, 244, 0.6), 0 0 15px rgba(196, 192, 255, 0.4);
+  }
+}
+
+@keyframes fadeIn3D {
+  from {
+    opacity: 0;
+    transform: perspective(1000px) translateZ(-40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(1000px) translateZ(0px) scale(1);
+  }
+}
+
+@keyframes bounceShort {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes revealSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-float-slow {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float 7s ease-in-out 2s infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+.animate-fadeIn {
+  animation: fadeIn3D 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-bounce-short {
+  animation: bounceShort 0.4s ease-in-out 2;
+}
+
+.animate-reveal-slide {
+  animation: revealSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* -------------------------------------------------------------------------
+   New motion utilities: ambient aurora blobs, gradient drift, shimmer sweep,
+   orbiting particles and a slow "breathing" idle float for 3D showcase cards.
+------------------------------------------------------------------------- */
+
+@keyframes gradientDrift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes shimmerSweep {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+
+@keyframes blobDrift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(30px, -20px, 0) scale(1.08); }
+  66% { transform: translate3d(-20px, 25px, 0) scale(0.95); }
+}
+
+@keyframes blobDriftReverse {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(-25px, 20px, 0) scale(0.94); }
+  66% { transform: translate3d(20px, -25px, 0) scale(1.06); }
+}
+
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(var(--orbit-radius, 140px)) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(var(--orbit-radius, 140px)) rotate(-360deg); }
+}
+
+@keyframes breathe3D {
+  0%, 100% { transform: translateZ(0px) scale(1); }
+  50% { transform: translateZ(24px) scale(1.015); }
+}
+
+@keyframes gridDrift {
+  from { background-position: 0 0; }
+  to { background-position: 48px 48px; }
+}
+
+@keyframes ringSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes countPulse {
+  0%, 100% { filter: drop-shadow(0 0 0 rgba(47, 217, 244, 0)); }
+  50% { filter: drop-shadow(0 0 14px rgba(47, 217, 244, 0.55)); }
+}
+
+.animate-blob-drift {
+  animation: blobDrift 14s ease-in-out infinite;
+}
+
+.animate-blob-drift-reverse {
+  animation: blobDriftReverse 16s ease-in-out infinite;
+}
+
+.animate-breathe-3d {
+  animation: breathe3D 5s ease-in-out infinite;
+}
+
+.animate-grid-drift {
+  animation: gridDrift 6s linear infinite;
+}
+
+.animate-ring-spin {
+  animation: ringSpin 18s linear infinite;
+}
+
+.animate-ring-spin-reverse {
+  animation: ringSpin 24s linear infinite reverse;
+}
+
+.animate-count-pulse {
+  animation: countPulse 3s ease-in-out infinite;
+}
+
+/* -------------------------------------------------------------------------
+   Boot Splash Screen Keyframes & Polish
+------------------------------------------------------------------------- */
+
+@keyframes bootSheenSweep {
+  0% {
+    transform: translateX(-160%) rotate(25deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(280%) rotate(25deg);
+    opacity: 0;
+  }
+}
+
+@keyframes bootGlint {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.3) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.4) rotate(45deg);
+  }
+}
+
+@keyframes bootProgressGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 6px rgba(47, 217, 244, 0.6)) drop-shadow(0 0 14px rgba(196, 192, 255, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgba(47, 217, 244, 0.95)) drop-shadow(0 0 28px rgba(196, 192, 255, 0.85));
+  }
+}
+
+.animate-boot-sheen {
+  animation: bootSheenSweep 2.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.animate-boot-glint {
+  animation: bootGlint 1.6s ease-in-out infinite;
+}
+
+.animate-boot-progress {
+  animation: bootProgressGlow 2.4s ease-in-out infinite;
+}

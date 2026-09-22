@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "auraedit-ai"
+version = "1.0.0"
+description = "AuraEdit AI - Full Stack AI-Powered Image & Video Editing Platform"
+authors = ["Harish <harish@example.com>"]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pillow = ">=10.2.0"
+numpy = ">=1.26.4"
+opencv-python-headless = ">=4.9.0.80"
+python-dotenv = ">=1.0.1"
+requests = ">=2.31.0"
+imageio = ">=2.34.0"
+imageio-ffmpeg = ">=0.5.1"
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+extraPaths = ["backend", "./backend"]
+
+[tool.pytest.ini_options]
+pythonpath = ["backend", "."]
+testpaths = ["backend"]

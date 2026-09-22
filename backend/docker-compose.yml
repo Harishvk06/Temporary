@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://aura_user:aura_password@db:5432/auraedit_db
+      - GEMINI_API_API_KEY=${GEMINI_API_API_KEY:-demo-key}
+      - SECRET_KEY=auraedit-super-secret-production-key
+    volumes:
+      - ./uploads:/app/uploads
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=aura_user
+      - POSTGRES_PASSWORD=aura_password
+      - POSTGRES_DB=auraedit_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ../database/postgres_schema.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  postgres_data:

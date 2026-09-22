@@ -1,0 +1,107 @@
+{
+  "collections": [
+    {
+      "name": "images_cache",
+      "validator": {
+        "$jsonSchema": {
+          "bsonType": "object",
+          "required": ["image_id", "user_id", "created_at"],
+          "properties": {
+            "image_id": { "bsonType": "string", "description": "UUID string of image" },
+            "user_id": { "bsonType": "string", "description": "UUID string of user" },
+            "processed_versions": {
+              "bsonType": "array",
+              "items": {
+                "bsonType": "object",
+                "required": ["version_id", "filter_name", "created_at"],
+                "properties": {
+                  "version_id": { "bsonType": "string" },
+                  "filter_name": { "bsonType": "string" },
+                  "parameters": { "bsonType": "object" },
+                  "image_data": { "bsonType": "string" },
+                  "created_at": { "bsonType": "date" }
+                }
+              }
+            },
+            "ai_analysis": {
+              "bsonType": "object",
+              "properties": {
+                "lighting": { "bsonType": "string" },
+                "composition": { "bsonType": "string" },
+                "colors": { "bsonType": "string" },
+                "issues": { "bsonType": "array", "items": { "bsonType": "string" } },
+                "recommendations": { "bsonType": "array", "items": { "bsonType": "string" } },
+                "confidence": { "bsonType": "double" }
+              }
+            },
+            "created_at": { "bsonType": "date" }
+          }
+        }
+      },
+      "indexes": [
+        { "key": { "image_id": 1 }, "unique": true },
+        { "key": { "user_id": 1 } },
+        { "key": { "created_at": 1 }, "expireAfterSeconds": 604800 }
+      ]
+    },
+    {
+      "name": "processing_jobs",
+      "validator": {
+        "$jsonSchema": {
+          "bsonType": "object",
+          "required": ["job_id", "user_id", "status"],
+          "properties": {
+            "job_id": { "bsonType": "string" },
+            "user_id": { "bsonType": "string" },
+            "media_id": { "bsonType": "string" },
+            "media_type": { "bsonType": "string", "enum": ["image", "video"] },
+            "status": { "bsonType": "string", "enum": ["pending", "processing", "completed", "failed"] },
+            "progress": { "bsonType": "int" },
+            "current_step": { "bsonType": "string" },
+            "total_steps": { "bsonType": "int" },
+            "prompt": { "bsonType": "string" },
+            "parameters": { "bsonType": "object" },
+            "result_url": { "bsonType": "string" },
+            "error_message": { "bsonType": "string" },
+            "start_time": { "bsonType": "date" },
+            "end_time": { "bsonType": "date" },
+            "processing_time_ms": { "bsonType": "int" },
+            "created_at": { "bsonType": "date" }
+          }
+        }
+      },
+      "indexes": [
+        { "key": { "job_id": 1 }, "unique": true },
+        { "key": { "user_id": 1 } },
+        { "key": { "status": 1 } }
+      ]
+    },
+    {
+      "name": "ai_call_logs",
+      "validator": {
+        "$jsonSchema": {
+          "bsonType": "object",
+          "required": ["user_id", "api", "model", "success"],
+          "properties": {
+            "user_id": { "bsonType": "string" },
+            "job_id": { "bsonType": "string" },
+            "api": { "bsonType": "string" },
+            "model": { "bsonType": "string" },
+            "prompt_tokens": { "bsonType": "int" },
+            "completion_tokens": { "bsonType": "int" },
+            "total_tokens": { "bsonType": "int" },
+            "cost": { "bsonType": "double" },
+            "response_time_ms": { "bsonType": "int" },
+            "success": { "bsonType": "bool" },
+            "error": { "bsonType": "string" },
+            "created_at": { "bsonType": "date" }
+          }
+        }
+      },
+      "indexes": [
+        { "key": { "user_id": 1 } },
+        { "key": { "created_at": 1 }, "expireAfterSeconds": 2592000 }
+      ]
+    }
+  ]
+}
