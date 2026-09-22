@@ -429,3 +429,10 @@ async def websocket_endpoint(websocket: WebSocket):
         print("[WebSocket] Client connection gracefully closed")
     except Exception as e:
         print(f"[WebSocket] Exception: {e}")
+
+
+# Mount Built Frontend SPA at root for complete standalone serving
+frontend_dist_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "frontend", "dist"))
+if os.path.exists(frontend_dist_dir):
+    app.mount("/", StaticFiles(directory=frontend_dist_dir, html=True), name="frontend_spa")
+
